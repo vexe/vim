@@ -1,0 +1,1 @@
+RltvNmbr.vba: call delete('C:\Program Files (x86)\Vim\vimfiles/plugin/RltvNmbr.vim')|call delete('C:\Program Files (x86)\Vim\vimfiles/plugin/RltvNmbrPlugin.vim')|call delete('C:\Program Files (x86)\Vim\vimfiles/doc/RltvNmbr.txt')|call delete('C:\Program Files (x86)\Vim\vimfiles/autoload/RltvNmbr.vim')
