@@ -20,8 +20,11 @@ let $PATH .= ';C:\Windows\SysWOW64'
 	augroup FileTypes
 		autocmd!
 		" C# semi colin
-		autocmd FileType cs  set foldmethod=syntax
+		autocmd FileType cs
+	   		\set foldmethod=syntax |
+			\inoremap <cr> <esc>:call InsertReturn()<cr>
 		autocmd FileType vim set foldmethod=marker
+
 		"autocmd FileType cs
 			"\ set foldmethod=syntax |
 			"\ inoremap <expr> ; ';' . (IsEOL() ? '<esc>:OmniSharpCodeFormat<cr>A<cr>' : '')
@@ -47,7 +50,8 @@ let $PATH .= ';C:\Windows\SysWOW64'
 	"color sexyblues
 	"color molokai
 	"color darkspectrum
-	color codeblocks_dark
+	"color codeblocks_dark
+	color neon
 	syntax on
 	set nowrap
 	set smartindent
@@ -68,7 +72,8 @@ let $PATH .= ';C:\Windows\SysWOW64'
 	set incsearch					" Show search matches as you type.
 	scriptencoding utf-8			" UTF-8 encoding
 	let mouse="a"					" Enable mouse
-	set guioptions=b 				" Bottom scroll-bar
+	"set guioptions=b 				" Bottom scroll-bar
+	set guioptions=
 
 	" Invisible chars
 	set list
@@ -77,6 +82,9 @@ let $PATH .= ';C:\Windows\SysWOW64'
 ""}}}
 
 ""{{{ -- Plugins --
+
+	"Tagbar
+	nnoremap <leader>tb :TagbarToggle<cr>
 
 	"Tabularize
 	nnoremap <leader>t= :Tabularize /=<cr>
@@ -344,7 +352,7 @@ let $PATH .= ';C:\Windows\SysWOW64'
 		let g:syntastic_cursor_column = 0
 
 	"Pathogen"
-		let g:pathogen_disabled = ['GoldenView', 'minibufexpl', 'vim-bufferline', 'OmniSharp', 'vim-session', 'syntastic', 'mru', 'tagbar', 'vim-autoformat', 'vim-dispatch', 'unite.vim', 'restore_view.vim, neocomplcache.vim']
+		let g:pathogen_disabled = ['GoldenView', 'minibufexpl', 'vim-bufferline', 'OmniSharp', 'vim-session', 'syntastic', 'mru', 'vim-autoformat', 'vim-dispatch', 'unite.vim', 'restore_view.vim, neocomplcache.vim']
 		execute pathogen#infect()
 
 	" MRU
@@ -439,6 +447,9 @@ let $PATH .= ';C:\Windows\SysWOW64'
 		" Duplicate current line
 		nnoremap <A-d> yyp
 		vnoremap <A-d> yP
+
+		" Jumps cursor inside braces http://stackoverflow.com/questions/9621173/vim-and-indentation-with-brackets-braces
+		inoremap {<CR> {<CR>}<C-o>O
 
 	"Visual/Select"
 		" Visually select the current word
@@ -551,14 +562,33 @@ let $PATH .= ';C:\Windows\SysWOW64'
 		"inoremap <C-Space> <C-x><C-o>
 	" Folding
 		" Toggle current fold
-		nnoremap <C-Space>  za
+		"nnoremap zf za
+		"vnoremap zf za
+		nnoremap <A-f> za
+		vnoremap <A-f> za
 		" Fold everything
-		""nnoremap <A-f> zM
+		nnoremap <A-a> zM
 		" Unfold everything
-		""nnoremap <A-u> zR
+		nnoremap <A-u> zR
 ""}}}
 
 ""{{{ -- Functions --
+nnoremap <silent> z. :call NextClosedFold('j')<cr>
+nnoremap <silent> z, :call NextClosedFold('k')<cr>
+function! NextClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
+endfunction
+
 	"define a list to hold the positions stack"
 	"the ability to traverse the list back and forth"
 	let CursorPositions  = []
