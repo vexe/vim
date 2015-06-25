@@ -290,7 +290,7 @@ endfun
 if version >= 700
   call s:X("CursorLine","","1c1c1c","","","")
   call s:X("CursorColumn","","1c1c1c","","","")
-  call s:X("MatchParen","ffffff","80a090","bold","","")
+  call s:X("MatchParen","ffffff","404040","bold","","")
 
   call s:X("TabLine","000000","b0b8c0","italic","","Black")
   call s:X("TabLineFill","9098a0","","","","")
@@ -302,7 +302,7 @@ if version >= 700
 endif
 
 call s:X("Visual","","404040","","","")
-call s:X("Cursor","","b0d0f0","","","")
+call s:X("Cursor","","656565","","","")
 
 call s:X("Normal","e8e8d3","151515","","White","")
 call s:X("LineNr","605958","151515","none","Black","")
