@@ -13,7 +13,7 @@ endif
 
 let g:colors_name = "simple_b"
 
-highlight Normal	    cterm=NONE ctermfg=black ctermbg=lightblue gui=NONE guifg=black guibg=lightblue 
+highlight Normal	    cterm=NONE ctermfg=black ctermbg=12127D gui=NONE guifg=black guibg=12127D 
 highlight NonText	    ctermfg=black ctermbg=lightblue  guifg=black guibg=white
 highlight LineNr        cterm=italic ctermfg=black ctermbg=lightblue  gui=italic guifg=black guibg=lightblue 
 

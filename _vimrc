@@ -11,7 +11,7 @@ augroup END
     "Start maximized
     augroup OnEnter
         autocmd!
-        autocmd VimEnter * Fullscreen
+        autocmd VimEnter * call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
         autocmd GUIEnter * simalt ~x
     augroup END
     " Auto set working directory
@@ -26,32 +26,52 @@ augroup END
 ""}}}
 
 ""{{{ -- Misc Settings --
+
+    " switch cases indentation
+    set cinoptions=1
+
+    " global search/replace by default
+    set gdefault
+
+    " horizontal cursor
+    set guicursor+=i:hor10
+
+    " disable blinking
+    set guicursor=a:blinkon0
+
+    " these four speed things up when syn high is enabled and browsing huge number of text
+    "syntax sync minlines=256
+    set norelativenumber
 	set expandtab
     set nocompatible
 	set shellslash
 	set backspace=2
-	set guifont=Consolas:b:h12:cANSI "use _ for spaces
-	set number relativenumber
+	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
+	set guifont=DOSLike:h14:cANSI "use _ for spaces
 	"color gold
 	"color badwolf
 	"color sexyblues
 	"color molokai
 	"color darkspectrum
 	"color codeblocks_dark
-	"color neon
+    "color neon
 	"color darkburn
     "color jellybeans
     "color obsidian
-    color mustang
+    "color up
+    "color twilight
+    "color mustang
+    "color matrix2
+    "color jammy
+    "color matrix
+    color black
     syntax on
 	set nowrap
     set smartindent
 	set tabstop=4
 	set shiftwidth=4
 	set textwidth=100
-	set guioptions=brL
-	set laststatus=2				" always display statusline
-	set cursorline					" highlights current line
+	set laststatus=0				" status line
 	filetype plugin indent on
 	set noswapfile
 	set nobackup
@@ -66,6 +86,9 @@ augroup END
 ""}}}
 
 ""{{{ -- Plugins --
+
+    " Fullscreen
+    map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
     "NERDTree
     let g:NERDTreeWinPos = "right"
@@ -95,7 +118,7 @@ augroup END
 
 	"Vim-shell"
 		"let g:shell_fullscreen_items = "mT"
-		let g:shell_fullscreen_always_on_top = 0
+		"let g:shell_fullscreen_always_on_top = 0
 
 	"UltiSnips"
 		" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -107,26 +130,38 @@ augroup END
 		let g:UltiSnipsEditSplit="vertical"
 
 	"Smooth scroll"
-		noremap <silent> <c-f> m':call smooth_scroll#down(&scroll * 1, 1, 1)<CR>
-		noremap <silent> <c-b> m':call smooth_scroll#up(&scroll * 1, 1, 1)<CR>
+		noremap <silent> <c-f> m':call smooth_scroll#down(&scroll * 1, 1, 2)<CR>
+		noremap <silent> <c-b> m':call smooth_scroll#up(&scroll * 1, 1, 2)<CR>
 
 	"Pathogen"
-		let g:pathogen_disabled = ['vim-easytags', 'tagbar', 'vim-airline', 'vim-bufsurf', 'GoldenView', 'minibufexpl', 'vim-bufferline', 'OmniSharp', 'vim-session', 'syntastic', 'mru', 'vim-autoformat', 'vim-dispatch', 'unite.vim', 'restore_view.vim', 'neocomplcache.vim', 'supertab', 'transparency-windows-vim', 'matchit', 'vim-autoclose', 'vim-csharp']
+		let g:pathogen_disabled = ['vim-easytags', 'tagbar', 'vim-airline', 'vim-bufsurf', 'GoldenView', 'minibufexpl', 'vim-bufferline', 'OmniSharp', 'vim-session', 'syntastic', 'mru', 'vim-autoformat', 'vim-dispatch', 'unite.vim', 'restore_view.vim', 'neocomplcache.vim', 'supertab',  'matchit', 'vim-autoclose', 'vim-csharp']
 		execute pathogen#infect()
 ""}}}
 
 ""{{{ -- Mappings
 
+    "jump to end of file
+    nnoremap <Space> G
+    vnoremap <Space> G
+
+    "serach for visually selected text
+    vnoremap * y/<C-R>"<CR>
+    vnoremap # y?<C-R>"<CR>
+
 	"Jump list
 	"forward
 	nnoremap <S-o> <C-I>
 
-	"Rename"
-	"local
-	nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+	"Rename" (whole word)
+    "current line
+    nnoremap <A-r><A-r> :s/\<<c-r>=expand("<cword>")<cr>\>/
+    "current function scope
+	nmap <A-r><A-l> Y[mV%:s/\<<C-R>"\>//c<left><left>
+    "global
+    nnoremap <A-r><A-g> :%s/\<<c-r>=expand("<cword>")<cr>\>//c<left><left>
 
-	"global
-	nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+	"nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+	"nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 
 	"Essential"
 		" Leader
@@ -152,6 +187,13 @@ augroup END
 		nnoremap <LeftMouse> m'<LeftMouse>
 		inoremap <LeftMouse> <c-o>m'<LeftMouse>
 
+    "Misc Nops
+        nnoremap <S-k> <nop>
+        imap<A-j> <nop>
+        imap<A-i> <nop>
+        imap<A-l> <nop>
+        imap<A-k> <nop>
+
 	"Movement"
 		noremap k gj
 		noremap i gk
@@ -159,30 +201,11 @@ augroup END
 
 		inoremap <C-l> <esc>ea
 		inoremap <C-j> <esc>bi
-		" Jump to matching braket
-		nnoremap <A-m> %
-		vnoremap <A-m> %
-		inoremap <A-m> <esc>%i
 		" Jump to last cursor position
 		nnoremap <A--> ``
-		" Quick jump
-		nmap <Space> G
-		vmap <Space> G
 		" Quick navigation, home, end, etc.
-		"inoremap <A-j> <Esc>^i
-		"inoremap <A-k> <Esc>o
-		"inoremap <A-l> <Esc>$a
-		"inoremap <A-i> <Esc>O
-		"nnoremap <A-j> ^i
-		"nnoremap <A-k> o
-		"nnoremap <A-i> O
-		"nnoremap <A-l> $a
-        imap<A-j> <nop>
-        imap<A-i> <nop>
-        imap<A-l> <nop>
-        imap<A-k> <nop>
 		nnoremap h ^i
-		nnoremap m o
+        nnoremap m o
 		nnoremap ' $a
 		nnoremap o O
 		vnoremap h ^
@@ -193,12 +216,18 @@ augroup END
 		nnoremap <silent> <A-,> ?{\n<CR>
 		nnoremap <silent> <A-.> /{\n<CR>
 
+        " jump to match
+        nnoremap <S-m> %
+        vnoremap <S-m> %
+
         " Next/previous 'f' finds
         nnoremap <leader>a ,
 
 		"Scroll screen 'without' moving cursor
 		nnoremap <C-i> <C-y>
 		nnoremap <C-k> <C-e>
+		vnoremap <C-i> <C-y>
+		vnoremap <C-k> <C-e>
 
 	"Clipboard"
 		" Undoing
@@ -208,14 +237,20 @@ augroup END
 		noremap <A-v> <C-v>
 
 	"Other"
+        " yank current word
+        nnoremap Y yiw
+
 		" This A-f's a BITCH! I don't know what it does but it always fucks things up for me!
 		nnoremap <A-f> <Nop>
+
 		" For recording purposes, fast repeating.
 		nnoremap <A-2> @a
+
 		" Change inside
 		nnoremap I ci
 		nnoremap A ca
-		" Duplicate current line
+
+		" Duplicate current line/highlighted word
 		nnoremap <C-d> yyp
 		vnoremap <C-d> yP
 
@@ -375,4 +410,73 @@ augroup END
 			execute "normal l"
 		endif
 	endfu
+
+    function! ToggleStringValue(input, value)
+    	let l:result = a:input
+    	if l:result =~ a:value
+    		let l:result = substitute(l:result, a:value, "", "")
+    	else
+    		let l:result .= a:value
+    	endif
+    	return l:result
+    endfu
+
+    function! GotoDefinition()
+      let n = search("\\<".expand("<cword>")."\\>[^(]*([^)]*)\\s*\\n*\\s*{")
+    endfunction
+    nnoremap <silent><A-d> m':call GotoDefinition()<CR>
+
+    nnoremap ]m :<c-u>call <SID>JumpMethod('{', 'W',  'n')<cr>
+    nnoremap [m :<c-u>call <SID>JumpMethod('{', 'Wb', 'n')<cr>
+    nnoremap ]M :<c-u>call <SID>JumpMethod('}', 'W',  'n')<cr>
+    nnoremap [M :<c-u>call <SID>JumpMethod('}', 'Wb', 'n')<cr>
+
+    function! s:JumpMethod(char, flags, mode)
+        let original_cursor = getpos('.')
+
+        if a:mode == 'v'
+            normal! gv
+        elseif a:mode == 'o'
+            normal! v
+        endif
+
+        while search(a:char, a:flags) > 0
+            if a:char == '}'
+                " jump to the opening one to analyze the definition
+                normal! %
+            endif
+
+            let current_line = line('.')
+
+            if getline(current_line) =~ '^\s*{'
+                " it's alone on the line, check the above one
+                let method_line = current_line - 1
+            else
+                let method_line = current_line
+            endif
+
+            let method_line_body = getline(method_line)
+
+            if method_line_body =~ '\k\+\s*(.*)' && method_line_body !~ '\<\(for\|foreach\|if\|while\|switch\|using\|catch\|get\|set\)\>'
+                " it's probably a function call
+
+                if a:char == '}'
+                    " we need to go back to the closing bracket
+                    normal! %
+                endif
+
+                echo
+                return
+            else
+                if a:char == '}'
+                    " we still need to go back to the closing bracket
+                    normal! %
+                endif
+            endif
+        endwhile
+
+        " if we're here, the search has failed, restore cursor position
+        echo
+        call setpos('.', original_cursor)
+    endfunction
 ""}}}

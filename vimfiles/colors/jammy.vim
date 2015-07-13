@@ -55,15 +55,15 @@ hi WarningMsg	guifg=salmon
 
 " syntax highlighting groups
 hi Comment	guifg=grey60
-hi Constant	guifg=indianred
+hi Constant	guifg=khaki
 
-hi Identifier	guifg=palegreen 
+hi Identifier	guifg=palegreen
 "hi Identifier	guifg=#D18B2C
 "palegreen
-"hi Statement	guifg=khaki
-hi Statement    guifg=#E6DB74
+hi Statement	guifg=khaki
+"hi Statement    guifg=#E6DB74
 hi PreProc	guifg=Skyblue
-hi Type		guifg=darkkhaki
+hi Type		guifg=khaki
 hi Special	guifg=navajowhite
 "hi Underlined
 hi Ignore	guifg=grey40
@@ -99,9 +99,9 @@ hi Comment	ctermfg=darkcyan
 hi Constant	ctermfg=brown
 hi Special	ctermfg=5
 hi Identifier	ctermfg=6
-hi Statement	ctermfg=3
+hi Statement	ctermfg=3 gui=NONE
 hi PreProc	ctermfg=5
-hi Type		ctermfg=2
+hi Type		ctermfg=2 gui=NONE
 hi Underlined	cterm=underline ctermfg=5
 hi Ignore	cterm=bold ctermfg=7
 hi Ignore	ctermfg=darkgrey

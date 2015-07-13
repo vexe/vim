@@ -26,7 +26,7 @@ hi DiffChange	guifg=#55ff55 guibg=#226622 gui=none
 " diff mode: Deleted line |diff.txt|
 hi DiffDelete	guifg=#113311 guibg=#113311 gui=none
 " diff mode: Changed text within a changed line |diff.txt|
-hi DiffText	guifg=#55ff55 guibg=#339933 gui=bold
+hi DiffText	guifg=#55ff55 guibg=#339933
 " error messages on the command line
 hi ErrorMsg	guifg=#55ff55 guibg=#339933
 " the column separating vertically split windows
@@ -58,7 +58,7 @@ hi StatusLine	guifg=#55ff55 guibg=#339933 gui=none
 " status lines of not-current windows
 hi StatusLineNC	guifg=#113311 guibg=#339933 gui=none
 " titles for output from ":set all", ":autocmd" etc.
-hi Title	guifg=#55ff55 guibg=#113311 gui=bold
+hi Title	guifg=#55ff55 guibg=#113311
 " Visual mode selection
 hi Visual	guifg=#55ff55 guibg=#339933 gui=none
 " Visual mode selection when vim is "Not Owning the Selection".
@@ -68,14 +68,13 @@ hi WarningMsg	guifg=#55ff55 guibg=#000000
 " current match in 'wildmenu' completion
 hi WildMenu	guifg=#226622 guibg=#55ff55
 
-hi MatchParen guibg=black
-hi Comment	guifg=#448844 guibg=#000000
+hi Comment	guifg=#226622 guibg=#000000
 hi Constant	guifg=#55ff55 guibg=#000000
 hi Special	guifg=#44cc44 guibg=#226622
-hi Identifier	guifg=#55ff55 guibg=#000000
-hi Statement	guifg=#55ff55 guibg=#000000 gui=NONE
+hi Identifier	guifg=#44cc44 guibg=#000000
+hi Statement	guifg=#44cc44 guibg=#000000
 hi PreProc	guifg=#339933 guibg=#000000
-hi Type		guifg=#55ff55 guibg=#000000 gui=NONE
+hi Type		guifg=#44cc44 guibg=#000000
 hi Underlined	guifg=#55ff55 guibg=#000000 gui=underline
 hi Error	guifg=#55ff55 guibg=#339933
 hi Todo		guifg=#113311 guibg=#44cc44 gui=none
