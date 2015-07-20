@@ -39,15 +39,14 @@ syn keyword csException			try catch finally throw
 " TODO:
 syn keyword csUnspecifiedStatement	as base checked event fixed in is lock operator out params ref sizeof stackalloc this unchecked unsafe using
 " TODO:
-"syn keyword csUnsupportedStatement	add remove value
-syn keyword csUnsupportedStatement	add remove
+syn keyword csUnsupportedStatement	add remove value
 " TODO:
 syn keyword csUnspecifiedKeyword	explicit implicit
 
 syn keyword csTypeOf                    typeof nextgroup=csEnclosed
 
 " Linq Keywords
-"syn keyword csLinq                      from where select group into orderby join let in on equals by ascending descending
+syn keyword csLinq                      from where select group into orderby join let in on equals by ascending descending
 
 " Async Keywords
 syn keyword csAsync                     async await
@@ -63,14 +62,13 @@ syn match csContextualStatement /\<where\>[^:]\+:/me=s+5
 syn keyword csNewDecleration            new nextgroup=csClass skipwhite
 
 "Interface & Class Identifier
-syn match csClass contained       /[^.]\<[A-Z][a-z]\w\+/ nextgroup=csGeneric
+"syn match csClass contained       /[^.]\<[A-Z][a-z]\w\+/ nextgroup=csGeneric
+syn match csClass contained       /\<[A-Z][a-z]\w\+/ nextgroup=csGeneric
 syn match csIface contained       /\<I[A-Z][a-z]\w\+/ nextgroup=csGeneric
-" syn region csGeneric start="<" end=">" contains=csIface,csClass
 syn region csEnclosed start="(" end=")" contains=csConstant,csType,csString, csVerbatimString, csCharacter, csNumber,csIface,csClass
-"syn region csInherits start=":" end="{" contains=csIface,csClass
 
 " Attributes
-"syn region csAttribute start="^\s*\[" end="\]\s*" contains=csString, csVerbatimString, csCharacter, csNumber, csType
+syn region csAttribute start="^\s*\[" end="\]\s*" contains=csString, csVerbatimString, csCharacter, csNumber, csType
 
 
 " Comments
@@ -113,7 +111,7 @@ syn region	csPreCondit
 syn region	csRegion matchgroup=csPreCondit start="^\s*#\s*region.*$"
     \ end="^\s*#\s*endregion" transparent fold contains=TOP
 
-syn region csFold start="{" end="}" transparent fold
+"syn region csFold start="{" end="}" transparent fold
 
 " Strings and constants
 syn match   csSpecialError	contained "\\."
@@ -149,11 +147,11 @@ hi def link csException			Exception
 hi def link csUnspecifiedStatement	Statement
 hi def link csUnsupportedStatement	Statement
 hi def link csUnspecifiedKeyword	Keyword
-"hi def link csLinq                      Keyword
+hi def link csLinq                      Keyword
 hi def link csAsync                     Keyword
 hi def link csContextualStatement	Statement
 hi def link csOperatorError		Error
-"hi def link csAttribute			PreProc
+hi def link csAttribute			Type
 
 hi def link csIface                     Type
 hi def link csClass                     Type
