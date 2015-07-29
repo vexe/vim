@@ -217,16 +217,20 @@ augroup END
 		" Jump to last cursor position
 		nnoremap <A--> ``
         " Next/Prev word
-        nnoremap L w
-        nnoremap J b
-        nnoremap I {
-        nnoremap K }
-        vnoremap L w
-        vnoremap J b
-        vnoremap I {
-        vnoremap K }
-        nnoremap H <S-j>
+        "nnoremap L w
+        "nnoremap J b
+        "nnoremap I {
+        "nnoremap K }
+        "vnoremap L w
+        "vnoremap J b
+        "vnoremap I {
+        "vnoremap K }
+        "nnoremap H <S-j>
 		" Quick navigation, home, end, etc.
+        nnoremap H {
+        nnoremap L }
+        vnoremap H {
+        vnoremap L }
 		nnoremap h ^i
         nnoremap m o
 		nnoremap ' $a
@@ -261,7 +265,7 @@ augroup END
 		nnoremap <C-z> u
 		inoremap <C-z> <C-[>ui
 		" This is due to the fact that in VS, Ctrl-V is reserved for paste
-		noremap <A-v> <C-v>
+		nnoremap <A-v> <C-v>
 
 	"Other"
         " yank current word
@@ -276,8 +280,9 @@ augroup END
 		nnoremap <A-2> @a
 
 		" Change inside
-		"nnoremap I ci
-		nnoremap " ci
+		nnoremap I ci
+		"nnoremap " ci
+		"vnoremap " I
 		nnoremap A ca
 
 		" Duplicate current line/highlighted word
