@@ -1,0 +1,79 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.000  000.000: --- VIM STARTING ---
+011.000  011.000: Allocated generic buffers
+015.000  004.000: locale set
+015.000  000.000: clipboard setup
+015.000  000.000: window checked
+079.000  064.000: inits 1
+081.000  002.000: parsing arguments
+081.000  000.000: expanding arguments
+101.000  020.000: shell init
+103.000  002.000: Termcap init
+104.000  001.000: inits 2
+104.000  000.000: init highlight
+158.000  022.000  022.000: sourcing C:\Program Files (x86)\Vim\vim74\autoload\paste.vim
+159.000  048.000  026.000: sourcing C:\Program Files (x86)\Vim\vim74/mswin.vim
+163.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/syntax/syncolor.vim
+164.000  003.000  003.000: sourcing C:/Program Files (x86)/Vim/vimfiles/colors/black.vim
+170.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/syntax/syncolor.vim
+172.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/syntax/syncolor.vim
+172.000  004.000  002.000: sourcing C:/Program Files (x86)/Vim/vimfiles/colors/black.vim
+172.000  006.000  002.000: sourcing C:/Program Files (x86)/Vim/vim74/syntax/synload.vim
+199.000  025.000  025.000: sourcing C:/Program Files (x86)/Vim/vim74/filetype.vim
+199.000  034.000  003.000: sourcing C:/Program Files (x86)/Vim/vim74\syntax\syntax.vim
+201.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/filetype.vim
+202.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/ftplugin.vim
+204.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/indent.vim
+207.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/autoload/pathogen.vim
+237.000  002.000  002.000: sourcing C:/Program Files (x86)/Vim/vim74/ftoff.vim
+267.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/ftdetect/snippets.vim
+269.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/ftdetect/UltiSnips.vim
+269.000  029.000  029.000: sourcing C:/Program Files (x86)/Vim/vim74/filetype.vim
+271.000  164.000  047.000: sourcing $VIM\_vimrc
+271.000  003.000: sourcing vimrc file(s)
+276.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ctrlp/autoload/ctrlp/mrufiles.vim
+276.000  003.000  003.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ctrlp/plugin/ctrlp.vim
+287.000  009.000  009.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/nerdcommenter/plugin/NERD_commenter.vim
+290.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/tabular/plugin/Tabular.vim
+292.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/plugin/snipMate_compatibility.vim
+297.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/autoload/UltiSnips/bootstrap.vim
+306.000  011.000  011.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/autoload/UltiSnips/map_keys.vim
+306.000  013.000  002.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/plugin/UltiSnips.vim
+312.000  003.000  003.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/vim-abolish/plugin/abolish.vim
+316.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/vim-surround/plugin/surround.vim
+318.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/vim-trailing-whitespace/plugin/trailing-whitespace.vim
+324.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/getscriptPlugin.vim
+325.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/grep-operator.vim
+327.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/gzip.vim
+328.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/matchparen.vim
+330.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/netrwPlugin.vim
+332.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/rrhelper.vim
+333.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/spellfile.vim
+335.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/tarPlugin.vim
+336.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/tohtml.vim
+338.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/vimballPlugin.vim
+339.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vim74/plugin/zipPlugin.vim
+342.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/after/plugin/UltiSnips_after.vim
+347.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/tabular/autoload/tabular.vim
+350.000  007.000  006.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/tabular/after/plugin/TabularMaps.vim
+352.000  000.000  000.000: sourcing C:/Program Files (x86)/Vim/vimfiles/after/plugin/abolish.vim
+352.000  039.000: loading plugins
+352.000  000.000: inits 3
+353.000  001.000: reading viminfo
+353.000  000.000: setting raw mode
+3022.000  2669.000: waiting for return
+3022.000  000.000: start termcap
+3022.000  000.000: clearing screen
+3023.000  001.000: opening buffers
+3024.000  001.000: BufEnter autocommands
+3024.000  000.000: editing files in windows
+3030.000  006.000: VimEnter autocommands
+3031.000  001.000: before starting main loop
+3034.000  001.000  001.000: sourcing C:/Program Files (x86)/Vim/vimfiles/bundle/ultisnips/autoload/UltiSnips.vim
+3041.000  009.000: first screen update
+3041.000  000.000: --- VIM STARTED ---

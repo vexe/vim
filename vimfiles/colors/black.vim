@@ -5,16 +5,15 @@ let g:colors_name = "black"
 " previous normal f8f8f8/e0e0e0
 
 hi Boolean      gui=NONE      guifg=#F0EFD2 guibg=NONE
-hi ColorColumn  gui=NONE      guifg=NONE    guibg=#1a1a1a
+"hi ColorColumn  gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi Comment      gui=NONE      guifg=#81EB86 guibg=NONE
 hi Conceal      gui=NONE      guifg=#808080 guibg=NONE
 hi Conditional  gui=NONE      guifg=#F0EFD2 guibg=NONE
 hi Constant     gui=NONE      guifg=#F0EFD2 guibg=NONE
-"hi Cursor       gui=reverse   guifg=NONE    guibg=NONE
 hi Cursor       gui=NONE      guifg=#121212 guibg=#afd700
-hi CursorColumn gui=NONE      guifg=NONE    guibg=#1a1a1a
+"hi CursorColumn gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi CursorLine   gui=NONE      guifg=NONE    guibg=#5b2a2e
-hi CursorLineNr gui=NONE      guifg=#707070 guibg=NONE
+"hi CursorLineNr gui=NONE      guifg=#707070 guibg=NONE
 hi DiffAdd      gui=NONE      guifg=NONE    guibg=#082608
 hi DiffChange   gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi DiffDelete   gui=NONE      guifg=NONE    guibg=#260808

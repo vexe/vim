@@ -19,22 +19,14 @@ augroup END
         autocmd!
         autocmd BufEnter * silent! lcd %:p:h
     augroup END
-    augroup FileTypes
-        autocmd!
-        autocmd FileType vim set foldmethod=marker
-        "autocmd FileType cs set foldmethod=syntax
-    augroup END
-    " poen file unfolded
-    augroup FoldGroup
-        autocmd!
-        autocmd BufWinEnter * normal zR
-    augroup END
 ""}}}
 
 ""{{{ -- Misc Settings --
 
-    " fixes scrolling rendering issues
+    " fixes scrolling/rendering issues
     set ttyscroll=0
+    set nocursorline
+    set nocursorcolumn
 
     " switch cases indentation
     set cinoptions=1
@@ -50,7 +42,7 @@ augroup END
     " disable blinking
     set guicursor=a:blinkon0
 
-    " these four speed things up when syn high is enabled and browsing huge number of text
+    " these four speed things up when syn high is enabled and browsing huge amount of text
     syntax sync minlines=256
 
     set norelativenumber
@@ -59,24 +51,7 @@ augroup END
 	set shellslash
 	set backspace=2
 	set guifont=Courier:h15:cANSI
-	"set guifont=DOSLike:h14:cANSI
 	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
-	"color gold
-	"color badwolf
-	"color sexyblues
-	"color molokai
-	"color darkspectrum
-	"color codeblocks_dark
-    "color neon
-	"color darkburn
-    "color jellybeans
-    "color obsidian
-    "color up
-    "color twilight
-    "color mustang
-    "color matrix2
-    "color jammy
-    "color matrix
     color black
     syntax on
 	set nowrap
@@ -94,7 +69,6 @@ augroup END
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
 	set incsearch					" Show search matches as you type.
 	scriptencoding utf-8			" UTF-8 encoding
-	let mouse="a"					" Enable mouse
 	set guioptions=                 " no gui, whatsoever
     set autoread                    " auto read files after they're modified without displaying a prompt
 ""}}}
@@ -104,18 +78,10 @@ augroup END
     " Fullscreen
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
-	"Easytags
-	"nnoremap <A-d> <C-]>
-    "let g:easytags_auto_highlight = 0
-    "let g:easytags_async = 1
-
 	"Tabularize
 	nnoremap <leader>t= :Tabularize /=<cr>
 	nnoremap <leader>t{ :Tabularize /{<cr>
 	nnoremap <leader>t: :Tabularize /:<cr>
-
-	"TrailingWhitespaces"
-    nnoremap <leader>fw :FixWhitespace<cr>
 
 	"CtrlP"
         let g:ctrlp_root_markers = ['Source']
@@ -127,7 +93,6 @@ augroup END
                         \*UnityTempFile*
 
 		nnoremap <C-m><c-p> :CtrlPMRU<cr>
-        "nnoremap <C-p> :CtrlP `=FindProjectRoot("Assets")`<CR>
 
 		let g:ctrlp_custom_ignore = {
 		  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -149,11 +114,14 @@ augroup END
 		noremap <silent> <c-b> m':call smooth_scroll#up(&scroll * 1, 1, 2)<CR>
 
 	"Pathogen"
-		let g:pathogen_disabled = ['headlights',  'vim-session', 'syntastic', 'vim-autoformat' ]
+		let g:pathogen_disabled = []
 		execute pathogen#infect()
 ""}}}
 
 ""{{{ -- Mappings
+
+    "simple for loop template
+    inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<CR><C-O>''<Esc>f(a
 
     "double toggle fullscreen
     nmap <leader>ff <F11><F11>
@@ -188,45 +156,36 @@ augroup END
 		nnoremap <leader>ev :vsplit $MYVIMRC <cr>
 		" Quick vimrc reload (sourcing)
 		nnoremap <leader>so :source $MYVIMRC <Bar>nohlsearch<cr>
-		" Clean search
+		" Clear search
 		nnoremap <silent><A-c> :nohlsearch<Return>
 		inoremap <silent><A-c> <esc>:nohlsearch<Return>a
 		" Quick insert/normal modes toggle (Caps is mapped to F2 via ahk)
 		nnoremap <F2> i
-		inoremap <silent><F2> <esc>:call GoRightIfNotBOL()<cr>
-
-	"Mouse"
-		" Middle mouse pasting
-		nnoremap <MiddleMouse> <Nop>
-		inoremap <MiddleMouse> <Nop>
-
-		" Make mouse clicks leave jump marks
-		nnoremap <LeftMouse> m'<LeftMouse>
-		inoremap <LeftMouse> <c-o>m'<LeftMouse>
+		inoremap <silent><F2> <Esc>:call GoRightIfNotBOL()<CR>
 
     "Misc Nops
-        nnoremap <S-k> <nop>
+        nnoremap <S-k> <Nop>
+		nnoremap <A-f> <Nop>
+		" mouse nops
+		map <MiddleMouse> <Nop>
+        map <LeftMouse> <Nop>
+        map <RightMouse> <Nop>
+        map <LeftDrag> <Nop>
+        map <RightDrag> <Nop>
+        imap <LeftMouse> <Nop>
+        imap <RightMouse> <Nop>
+        imap <LeftDrag> <Nop>
 
 	"Movement"
 		noremap k gj
 		noremap i gk
 		noremap j h
-
+        " Next/prev word (insert mode)
 		inoremap <C-l> <esc>ea
 		inoremap <C-j> <esc>bi
 		" Jump to last cursor position
 		nnoremap <A--> ``
-        " Next/Prev word
-        "nnoremap L w
-        "nnoremap J b
-        "nnoremap I {
-        "nnoremap K }
-        "vnoremap L w
-        "vnoremap J b
-        "vnoremap I {
-        "vnoremap K }
-        "nnoremap H <S-j>
-		" Quick navigation, home, end, etc.
+		" Quick navigation
         nnoremap H {
         nnoremap L }
         vnoremap H {
@@ -237,26 +196,18 @@ augroup END
 		nnoremap o O
 		vnoremap h ^
 		vnoremap ' $
-		" Jump to next { or  }
-		vnoremap <silent> <A-,> ?{\n<CR>
-		vnoremap <silent> <A-.> /{\n<CR>
-		nnoremap <silent> <A-,> ?{\n<CR>
-		nnoremap <silent> <A-.> /{\n<CR>
 
         " jump to match
         nnoremap <S-m> %
         vnoremap <S-m> %
 
-        " Next/previous 'f' finds
-        nnoremap <leader>a ,
-
 		"Scroll screen 'without' moving cursor
 		nnoremap <C-i> <C-y>
 		nnoremap <C-k> <C-e>
-		vnoremap <C-i> <C-y>
-		vnoremap <C-k> <C-e>
 		nnoremap <C-j> zh
 		nnoremap <C-l> zl
+		vnoremap <C-i> <C-y>
+		vnoremap <C-k> <C-e>
 		vnoremap <C-j> zh
 		vnoremap <C-l> zl
 
@@ -271,18 +222,11 @@ augroup END
         " yank current word
         nnoremap Y yiw
 
-		" This A-f's a BITCH! I don't know what it does but it always fucks things up for me!
-		nnoremap <A-f> <Nop>
-
-		" For recording purposes, fast repeating.
-		" For recording purposes, fast repeating.
 		" For recording purposes, fast repeating.
 		nnoremap <A-2> @a
 
 		" Change inside
 		nnoremap I ci
-		"nnoremap " ci
-		"vnoremap " I
 		nnoremap A ca
 
 		" Duplicate current line/highlighted word
@@ -304,22 +248,10 @@ augroup END
 		nnoremap <A-a> <C-a>
 		nnoremap <A-x> <C-x>
 
-	"Nops"
-		" Tab in normal mode acts weird sometimes
-		"nnoremap <Tab> <nop>
-
-	"String/Text ops"
-		"Text swapping (bubbling)"
-			" Multiple line
-			vnoremap <C-Up> xkP`[V `]
-			vnoremap <C-Down> xp`[V`]
-
 	"Deletion"
 		" Delete word under cursor
 		nnoremap d<space> diw
 		nnoremap c<space> ciw
-		" Delete all empty lines
-		nnoremap <A-S-d> :g/^$/d <Return>
 		" delete word to the left of cursor.
 		inoremap <C-BS> <C-W>
 		" Enhanced change line
@@ -328,10 +260,6 @@ augroup END
 	"GUI"
 		" Toggle menu bar
 		nnoremap <silent><leader>tm :call ToggleMenuBar()<cr>
-
-		" Zoom in/out
-		nnoremap <leader>z=   :silent! let &guifont = substitute(&guifont, ':h\zs\d\+', '\=eval(submatch(0)+1)', '')<CR>
-		nnoremap <leader>z-   :silent! let &guifont = substitute(&guifont, ':h\zs\d\+', '\=eval(submatch(0)-1)', '')<CR>
 
 	"Buffers"
 		" Show a menu to complete buffer and file names
@@ -370,22 +298,10 @@ augroup END
 		" Resizing
 		nnoremap <silent><A-S-l> :15winc ><CR>
 		nnoremap <silent><A-S-j> :15winc <<CR>
-		nnoremap <silent><A-S-i> <C-w>5-
-		nnoremap <silent><A-S-k> <C-w>5+
-		nnoremap <silent><C-Right> :15winc ><CR>
-		nnoremap <silent><C-Left> :15winc <<CR>
-		nnoremap <silent><C-Up> <C-w>5-
-		nnoremap <silent><C-Down> <C-w>5+
-		" Veritcal/Horizontal Splits
+		nnoremap <silent><A-S-i> <C-w>5+
+		nnoremap <silent><A-S-k> <C-w>5-
+		" Veritcal Split
 		nnoremap <leader>sv <C-w>v
-		nnoremap <leader>sh <C-w>s
-	" Folding
-		nnoremap <A-Space> za
-		vnoremap <A-Space> za
-		" Fold everything
-		nnoremap <A-o> zM
-		" Unfold everything
-		nnoremap <A-u> zR
 ""}}}
 
 ""{{{ -- Functions --
@@ -483,17 +399,5 @@ augroup END
         " if we're here, the search has failed, restore cursor position
         echo
         call setpos('.', original_cursor)
-    endfunction
-
-    function! FindProjectRoot(lookFor)
-        let pathMaker='%:p'
-        while(len(expand(pathMaker))>len(expand(pathMaker.':h')))
-            let pathMaker=pathMaker.':h'
-            let fileToCheck=expand(pathMaker).'/'.a:lookFor
-            if filereadable(fileToCheck)||isdirectory(fileToCheck)
-                return expand(pathMaker).'/'.a:lookFor
-            endif
-        endwhile
-        return 0
     endfunction
 ""}}}
