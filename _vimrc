@@ -82,6 +82,9 @@ augroup END
 	nnoremap <leader>t= :Tabularize /=<cr>
 	nnoremap <leader>t{ :Tabularize /{<cr>
 	nnoremap <leader>t: :Tabularize /:<cr>
+	vnoremap <leader>t= :Tabularize /=<cr>
+	vnoremap <leader>t{ :Tabularize /{<cr>
+	vnoremap <leader>t: :Tabularize /:<cr>
 
 	"CtrlP"
         let g:ctrlp_root_markers = ['Source']
@@ -111,7 +114,7 @@ augroup END
 
 	"Smooth scroll"
 		noremap <silent> <c-f> m':call smooth_scroll#down(&scroll * 1, 1, 2)<CR>
-		noremap <silent> <c-b> m':call smooth_scroll#up(&scroll * 1, 1, 2)<CR>
+		noremap <silent> <c-a> m':call smooth_scroll#up(&scroll * 1, 1, 2)<CR>
 
 	"Pathogen"
 		let g:pathogen_disabled = []
@@ -119,6 +122,12 @@ augroup END
 ""}}}
 
 ""{{{ -- Mappings
+
+    "indent block
+    nnoremap + =}
+
+    "find variable/function declaration (works when their name is the start of the line)
+    nnoremap <A-d> yiw/^\<<C-R>"\><CR>
 
     "simple for loop template
     inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<CR><C-O>''<Esc>f(a
@@ -162,6 +171,7 @@ augroup END
 		" Quick insert/normal modes toggle (Caps is mapped to F2 via ahk)
 		nnoremap <F2> i
 		inoremap <silent><F2> <Esc>:call GoRightIfNotBOL()<CR>
+        vnoremap <F2> <Esc>
 
     "Misc Nops
         nnoremap <S-k> <Nop>
@@ -185,11 +195,22 @@ augroup END
 		inoremap <C-j> <esc>bi
 		" Jump to last cursor position
 		nnoremap <A--> ``
-		" Quick navigation
-        nnoremap H {
-        nnoremap L }
-        vnoremap H {
-        vnoremap L }
+		" Navigation
+        "next/prev word/block
+        nnoremap J b
+        nnoremap L w
+        nnoremap I {
+        nnoremap K }
+        vnoremap J b
+        vnoremap L w
+        vnoremap I {
+        vnoremap K }
+
+        "next/prev method
+        nnoremap } :<c-u>call <SID>JumpMethod('{', 'W',  'n')<cr>
+        nnoremap { :<c-u>call <SID>JumpMethod('{', 'Wb', 'n')<cr>
+
+        "beginning/end of line
 		nnoremap h ^i
         nnoremap m o
 		nnoremap ' $a
@@ -197,11 +218,20 @@ augroup END
 		vnoremap h ^
 		vnoremap ' $
 
+        "jump to top/middle/bottom of the screen
+        nnoremap <S-h> M
+        nnoremap <S-t> H
+        nnoremap <S-b> L
+        vnoremap <S-h> M
+        vnoremap <S-t> H
+        vnoremap <S-b> L
+
         " jump to match
         nnoremap <S-m> %
         vnoremap <S-m> %
 
 		"Scroll screen 'without' moving cursor
+        "one char
 		nnoremap <C-i> <C-y>
 		nnoremap <C-k> <C-e>
 		nnoremap <C-j> zh
@@ -210,6 +240,14 @@ augroup END
 		vnoremap <C-k> <C-e>
 		vnoremap <C-j> zh
 		vnoremap <C-l> zl
+
+        "screen
+        nnoremap <C-h> zz
+        nnoremap <C-t> zt
+        nnoremap <C-b> zb
+        vnoremap <C-h> zz
+        vnoremap <C-t> zt
+        vnoremap <C-b> zb
 
 	"Clipboard"
 		" Undoing
@@ -226,8 +264,15 @@ augroup END
 		nnoremap <A-2> @a
 
 		" Change inside
-		nnoremap I ci
-		nnoremap A ca
+        nnoremap <A-i> ci
+
+        " Join
+        nnoremap <A-j> J
+        vnoremap <A-j> J
+
+        " Visual->insert
+        vnoremap <A-i> I
+        vnoremap <A-a> A
 
 		" Duplicate current line/highlighted word
 		nnoremap <C-d> yyp
@@ -239,9 +284,10 @@ augroup END
 	"Visual/Select"
 		" Visually select the current word
 		nnoremap v<space> viw
+
 		" Select everything
-		nnoremap <C-a> ggvGl
-		inoremap <C-a> <C-[>ggvGl
+		"nnoremap <C-a> ggvGl
+		"inoremap <C-a> <C-[>ggvGl
 
 	"Numerics"
 		" [de-in]crement
@@ -287,10 +333,19 @@ augroup END
 
 	"Windows"
 		" Switching windows
-		nnoremap <silent> <A-i> :wincmd k<CR>
-		nnoremap <silent> <A-k> :wincmd j<CR>
-		nnoremap <silent> <A-j> :wincmd h<CR>
-		nnoremap <silent> <A-l> :wincmd l<CR>
+		"nnoremap <A-i> {
+		"nnoremap <A-k> }
+		"nnoremap <A-j> b
+		"nnoremap <A-l> e
+		"vnoremap <A-i> {
+		"vnoremap <A-k> }
+		"vnoremap <A-j> b
+		"vnoremap <A-l> e
+
+		"nnoremap <silent> <A-i> :wincmd k<CR>
+		"nnoremap <silent> <A-k> :wincmd j<CR>
+		"nnoremap <silent> <A-j> :wincmd h<CR>
+		"nnoremap <silent> <A-l> :wincmd l<CR>
 		nnoremap <silent> <leader>wi :wincmd k<CR>
 		nnoremap <silent> <leader>wk :wincmd j<CR>
 		nnoremap <silent> <leader>wj :wincmd h<CR>
@@ -341,16 +396,6 @@ augroup END
     	endif
     	return l:result
     endfu
-
-    function! GotoDefinition()
-      let n = search("\\<".expand("<cword>")."\\>[^(]*([^)]*)\\s*\\n*\\s*{")
-    endfunction
-    nnoremap <silent><A-d> m':call GotoDefinition()<CR>
-
-    nnoremap ]m :<c-u>call <SID>JumpMethod('{', 'W',  'n')<cr>
-    nnoremap [m :<c-u>call <SID>JumpMethod('{', 'Wb', 'n')<cr>
-    nnoremap ]M :<c-u>call <SID>JumpMethod('}', 'W',  'n')<cr>
-    nnoremap [M :<c-u>call <SID>JumpMethod('}', 'Wb', 'n')<cr>
 
     function! s:JumpMethod(char, flags, mode)
         let original_cursor = getpos('.')
