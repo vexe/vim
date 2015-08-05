@@ -50,12 +50,12 @@ augroup END
     set nocompatible
 	set shellslash
 	set backspace=2
-	set guifont=Courier:h15:cANSI
+	set guifont=Courier_New:h15:cANSI
 	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
     color black
     syntax on
 	set nowrap
-    set smartindent
+    set autoindent
 	set tabstop=4
 	set shiftwidth=4
 	set textwidth=100
@@ -64,7 +64,6 @@ augroup END
 	set noswapfile
 	set nobackup
 	set hlsearch					" highlights all the found instances in a search
-    "set noignorecase
     set ignorecase					" Ignore case when searching
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
 	set incsearch					" Show search matches as you type.
@@ -123,14 +122,17 @@ augroup END
 
 ""{{{ -- Mappings
 
+    "member search
+    nnoremap <A-/> /^
+
     "indent block
-    nnoremap + =}
+    nnoremap + =i{
 
     "find variable/function declaration (works when their name is the start of the line)
-    nnoremap <A-d> yiw/^\<<C-R>"\><CR>
+    nnoremap <A-d> yiw/^\<<C-R>"\><CR>zz
 
     "simple for loop template
-    inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<CR><C-O>''<Esc>f(a
+    inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<C-O>''<Esc>m'=i{''f(a
 
     "double toggle fullscreen
     nmap <leader>ff <F11><F11>
@@ -265,6 +267,8 @@ augroup END
 
 		" Change inside
         nnoremap <A-i> ci
+        nnoremap <A-i><A-'> ci"
+        nnoremap <A-i><A-9> ci(
 
         " Join
         nnoremap <A-j> J
@@ -284,10 +288,6 @@ augroup END
 	"Visual/Select"
 		" Visually select the current word
 		nnoremap v<space> viw
-
-		" Select everything
-		"nnoremap <C-a> ggvGl
-		"inoremap <C-a> <C-[>ggvGl
 
 	"Numerics"
 		" [de-in]crement
@@ -333,19 +333,6 @@ augroup END
 
 	"Windows"
 		" Switching windows
-		"nnoremap <A-i> {
-		"nnoremap <A-k> }
-		"nnoremap <A-j> b
-		"nnoremap <A-l> e
-		"vnoremap <A-i> {
-		"vnoremap <A-k> }
-		"vnoremap <A-j> b
-		"vnoremap <A-l> e
-
-		"nnoremap <silent> <A-i> :wincmd k<CR>
-		"nnoremap <silent> <A-k> :wincmd j<CR>
-		"nnoremap <silent> <A-j> :wincmd h<CR>
-		"nnoremap <silent> <A-l> :wincmd l<CR>
 		nnoremap <silent> <leader>wi :wincmd k<CR>
 		nnoremap <silent> <leader>wk :wincmd j<CR>
 		nnoremap <silent> <leader>wj :wincmd h<CR>

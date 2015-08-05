@@ -2,18 +2,13 @@ hi clear
 syntax reset
 let g:colors_name = "black"
 
-" previous normal f8f8f8/e0e0e0
-
 hi Boolean      gui=NONE      guifg=#F0EFD2 guibg=NONE
-"hi ColorColumn  gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi Comment      gui=NONE      guifg=#81EB86 guibg=NONE
 hi Conceal      gui=NONE      guifg=#808080 guibg=NONE
 hi Conditional  gui=NONE      guifg=#F0EFD2 guibg=NONE
 hi Constant     gui=NONE      guifg=#F0EFD2 guibg=NONE
 hi Cursor       gui=NONE      guifg=#121212 guibg=#afd700
-"hi CursorColumn gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi CursorLine   gui=NONE      guifg=NONE    guibg=#5b2a2e
-"hi CursorLineNr gui=NONE      guifg=#707070 guibg=NONE
 hi DiffAdd      gui=NONE      guifg=NONE    guibg=#082608
 hi DiffChange   gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi DiffDelete   gui=NONE      guifg=NONE    guibg=#260808
@@ -26,12 +21,11 @@ hi Folded       gui=NONE      guifg=#707070 guibg=NONE
 hi Ignore       gui=NONE      guifg=NONE    guibg=NONE
 hi IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
 hi Search       gui=NONE      guifg=#ffffa8 guibg=#808000
-hi LineNr       gui=NONE      guifg=#616161 guibg=NONE
 hi MatchParen   gui=NONE      guifg=NONE    guibg=#333333
 hi ModeMsg      gui=NONE      guifg=NONE    guibg=NONE
 hi MoreMsg      gui=NONE      guifg=NONE    guibg=NONE
 hi NonText      gui=NONE      guifg=#616161 guibg=NONE
-hi Normal       gui=NONE      guifg=#F0EFD2 guibg=#313131
+hi Normal       gui=NONE      guifg=#F0EFD2 guibg=#212121
 hi Number       gui=NONE      guifg=#F0EFD2 guibg=NONE
 hi Pmenu        gui=NONE      guifg=NONE    guibg=#1a1a1a
 hi PmenuSbar    gui=NONE      guifg=NONE    guibg=#262626
@@ -64,4 +58,4 @@ hi WarningMsg   gui=NONE      guifg=NONE    guibg=#260808
 hi WildMenu     gui=NONE      guifg=NONE    guibg=#525252
 hi lCursor      gui=NONE      guifg=NONE    guibg=NONE
 hi Identifier   gui=NONE      guifg=NONE    guibg=NONE
-hi PreProc      gui=NONE      guifg=#ffa8ff guibg=NONE
+hi PreProc      gui=NONE      guifg=#F0EFD2 guibg=NONE
