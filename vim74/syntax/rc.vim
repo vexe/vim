@@ -182,13 +182,13 @@ if version >= 508 || !exists("did_rc_syntax_inits")
   HiLink rcStatement	Statement
 
   " Default color overrides
-  hi def rcLanguage	term=reverse ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
-  hi def rcMainObject	term=underline ctermfg=Blue guifg=Blue
-  hi def rcSubObject	ctermfg=Green guifg=Green
-  hi def rcCaptionParam	term=underline ctermfg=DarkGreen guifg=Green
-  hi def rcParam	ctermfg=DarkGreen guifg=DarkGreen
-  hi def rcStatement	ctermfg=DarkGreen guifg=DarkGreen
-  hi def rcCommonAttribute	ctermfg=Brown guifg=Brown
+  "hi def rcLanguage	term=reverse ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
+  "hi def rcMainObject	term=underline ctermfg=Blue guifg=Blue
+  "hi def rcSubObject	ctermfg=Green guifg=Green
+  "hi def rcCaptionParam	term=underline ctermfg=DarkGreen guifg=Green
+  "hi def rcParam	ctermfg=DarkGreen guifg=DarkGreen
+  "hi def rcStatement	ctermfg=DarkGreen guifg=DarkGreen
+  "hi def rcCommonAttribute	ctermfg=Brown guifg=Brown
 
   "HiLink rcIdentifier	Identifier
 

@@ -10,6 +10,6 @@ endif
 let b:did_indent = 1
 
 " C indenting is built-in, thus this is very simple
-setlocal cindent
+setlocal autoindent
 
 let b:undo_indent = "setl cin<"

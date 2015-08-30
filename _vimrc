@@ -23,21 +23,25 @@ augroup END
 
 ""{{{ -- Misc Settings --
 
+    " split chars
+    set fillchars=stl:-
+    set fillchars+=vert:\|
+
     " fixes scrolling/rendering issues
     set ttyscroll=0
     set nocursorline
     set nocursorcolumn
 
     " switch cases indentation
-    set cinoptions=1
+    set cinoptions==0
 
     " global search/replace by default
     set gdefault
 
     " cursor shape
-    set guicursor+=i:ver10
-    set guicursor+=v:ver10
-    set guicursor+=n:hor10
+    set guicursor+=i:ver11
+    set guicursor+=v:ver11
+    set guicursor+=n:hor11
 
     " disable blinking
     set guicursor=a:blinkon0
@@ -50,7 +54,7 @@ augroup END
     set nocompatible
 	set shellslash
 	set backspace=2
-	set guifont=Courier_New:h15:cANSI
+	set guifont=Courier_New:h12:cANSI
 	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
     color black
     syntax on
@@ -63,13 +67,15 @@ augroup END
 	filetype plugin indent on
 	set noswapfile
 	set nobackup
-	set hlsearch					" highlights all the found instances in a search
+	"set hlsearch					" highlights all the found instances in a search
     set ignorecase					" Ignore case when searching
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
 	set incsearch					" Show search matches as you type.
 	scriptencoding utf-8			" UTF-8 encoding
 	set guioptions=                 " no gui, whatsoever
     set autoread                    " auto read files after they're modified without displaying a prompt
+    set mouse=a
+
 ""}}}
 
 ""{{{ -- Plugins --
@@ -86,13 +92,13 @@ augroup END
 	vnoremap <leader>t: :Tabularize /:<cr>
 
 	"CtrlP"
-        let g:ctrlp_root_markers = ['Source']
+        let g:ctrlp_root_markers = ['Source', 'src']
 
 		set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.meta,*.mat,*.suo,*.csproj,*.sln,*.dwlt,
                         \*.asset,*.unity,*.db,*.xml,*.cache,*.prefab,*.fbx,*.max,*.lxo,*.blend,
                         \*.obj,*.3DS,*.smd,*.mp3,*.ogg,*.wav,*.png,*.jpg,*.prefs,*.anim,*.unityproj,
                         \*.config,*.log,*.rsp,
-                        \*UnityTempFile*
+                        \*UnityTempFile*,*.pdb,*.dll,*.ilk,*.lnk,*.ini
 
 		nnoremap <C-m><c-p> :CtrlPMRU<cr>
 
@@ -122,17 +128,29 @@ augroup END
 
 ""{{{ -- Mappings
 
-    "member search
+    "collapse blocks of empty lines into a single one
+    nnoremap <silent> <leader>re :%s/^\_s\+\n/\r<CR>
+    
+    "unicode insertion
+    inoremap <C-k> <C-v>
+    cnoremap <C-k> <C-v>
+
+    "member search (works only when lines start with member names)
     nnoremap <A-/> /^
 
     "indent block
-    nnoremap + =i{
+    nnoremap + =}
+    nnoremap =i =i{
 
     "find variable/function declaration (works when their name is the start of the line)
     nnoremap <A-d> yiw/^\<<C-R>"\><CR>zz
+    "find struct/class/enum
+    nnoremap <A-f><A-s> yiw/^\<struct <C-R>"\><CR>zz
+    nnoremap <A-f><A-c> yiw/^\<class <C-R>"\><CR>zz
+    nnoremap <A-f><A-e> yiw/^\<enum <C-R>"\><CR>zz
 
     "simple for loop template
-    inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<C-O>''<Esc>m'=i{''f(a
+    "inoremap ,for <C-O>m'for(; ;)<CR>{<CR>}<C-O>''<Esc>m'=i{''f(a
 
     "double toggle fullscreen
     nmap <leader>ff <F11><F11>
@@ -172,23 +190,15 @@ augroup END
 		inoremap <silent><A-c> <esc>:nohlsearch<Return>a
 		" Quick insert/normal modes toggle (Caps is mapped to F2 via ahk)
 		nnoremap <F2> i
-		inoremap <silent><F2> <Esc>:call GoRightIfNotBOL()<CR>
+        inoremap <silent><F2> <Esc>:call GoRightIfNotBOL()<CR>
         vnoremap <F2> <Esc>
 
     "Misc Nops
-        nnoremap <S-k> <Nop>
 		nnoremap <A-f> <Nop>
 		" mouse nops
 		map <MiddleMouse> <Nop>
-        map <LeftMouse> <Nop>
-        map <RightMouse> <Nop>
-        map <LeftDrag> <Nop>
-        map <RightDrag> <Nop>
-        imap <LeftMouse> <Nop>
-        imap <RightMouse> <Nop>
-        imap <LeftDrag> <Nop>
 
-	"Movement"
+	"Movement"   
 		noremap k gj
 		noremap i gk
 		noremap j h
@@ -201,24 +211,34 @@ augroup END
         "next/prev word/block
         nnoremap J b
         nnoremap L w
-        nnoremap I {
-        nnoremap K }
+        "nnoremap I {
+        "nnoremap K }
         vnoremap J b
         vnoremap L w
-        vnoremap I {
-        vnoremap K }
-
-        "next/prev method
-        nnoremap } :<c-u>call <SID>JumpMethod('{', 'W',  'n')<cr>
-        nnoremap { :<c-u>call <SID>JumpMethod('{', 'Wb', 'n')<cr>
+        "vnoremap I {
+        "vnoremap K }   
+        
+        nnoremap / :set hlsearch<CR>:nohlsearch<CR>/
+        nnoremap ? :set hlsearch<CR>:nohlsearch<CR>?
+        
+        nnoremap <silent> I :set nohlsearch<CR>?^\s*$<CR>:nohlsearch<CR>
+        nnoremap <silent> K :set nohlsearch<CR>/^\s*$<CR>:nohlsearch<CR>
+        vnoremap <silent> I ?^\s*$<CR>
+        vnoremap <silent> K /^\s*$<CR>
+        
+        "next/prev method/function'
+        nnoremap <silent>} /^{<CR>:nohlsearch<CR>zz
+        nnoremap <silent>{ ?^{<CR>:nohlsearch<CR>zz
 
         "beginning/end of line
-		nnoremap h ^i
-        nnoremap m o
-		nnoremap ' $a
-		nnoremap o O
-		vnoremap h ^
-		vnoremap ' $
+        nnoremap m ox<BS>
+        nnoremap o Ox<BS>
+        "nnoremap m o
+        "nnoremap o O
+        nnoremap h ^i
+        nnoremap ' $a
+        vnoremap h ^
+        vnoremap ' $
 
         "jump to top/middle/bottom of the screen
         nnoremap <S-h> M
@@ -308,6 +328,9 @@ augroup END
 		nnoremap <silent><leader>tm :call ToggleMenuBar()<cr>
 
 	"Buffers"
+        " previous buffer
+        nnoremap <leader>3 :buf #<CR>
+
 		" Show a menu to complete buffer and file names
 		set wildchar=<Tab> wildmenu wildmode=full"
 
