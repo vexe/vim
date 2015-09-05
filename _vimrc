@@ -27,10 +27,10 @@ augroup END
     set fillchars=stl:-
     set fillchars+=vert:\|
 
-    " fixes scrolling/rendering issues
-    set ttyscroll=0
-    set nocursorline
-    set nocursorcolumn
+    " fixes some scrolling/rendering issues
+    "set ttyscroll=0
+    "set nocursorline
+    "set nocursorcolumn
 
     " switch cases indentation
     set cinoptions==0
@@ -41,32 +41,35 @@ augroup END
     " cursor shape
     set guicursor+=i:ver11
     set guicursor+=v:ver11
-    set guicursor+=n:hor11
+    set guicursor+=n:block
 
     " disable blinking
     set guicursor=a:blinkon0
 
     " these four speed things up when syn high is enabled and browsing huge amount of text
-    syntax sync minlines=256
+    "syntax sync minlines=256
 
     set norelativenumber
 	set expandtab
     set nocompatible
 	set shellslash
 	set backspace=2
-	set guifont=Courier_New:h12:cANSI
+	set guifont=inputmono:h11
+	"set guifont=Courier_New:h12:cANSI
 	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
     color black
     syntax on
 	set nowrap
     set autoindent
+    set smartindent
 	set tabstop=4
 	set shiftwidth=4
-	set textwidth=100
+	set textwidth=65
 	set laststatus=0				" status line
 	filetype plugin indent on
 	set noswapfile
 	set nobackup
+    set nohlsearch
 	"set hlsearch					" highlights all the found instances in a search
     set ignorecase					" Ignore case when searching
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
@@ -79,6 +82,52 @@ augroup END
 ""}}}
 
 ""{{{ -- Plugins --
+
+    " Ensure the buffer for building code opens in a new view
+    set switchbuf=useopen,split
+
+    " error message formats
+    " Microsoft MSBuild
+    set errorformat+=\\\ %#%f(%l\\\,%c):\ %m
+    " Microsoft compiler: cl.exe
+    set errorformat+=\\\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m
+    " Microsoft HLSL compiler: fxc.exe
+    set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
+
+    function! DoBuild()
+        set makeprg=build.bat
+        AsyncMake
+    endfunction
+
+    function! ToggleQuickFix()
+        if exists("g:qwindow")
+            cclose
+            unlet g:qwindow
+        else
+            try
+                "open quickfix window
+                vert copen
+                "give it a decent size
+                vert resize 50
+                let g:qwindow = 1
+            catch 
+                echo "No Errors found!"
+            endtry
+        endif
+    endfunction
+
+    
+    " toggle quickfix window
+    "nnoremap <silent> <A-3> :call ToggleQuickFix()<CR> 
+    nnoremap <A-3> :copen<CR>
+    
+    " navigate errors
+    nnoremap <A-.> :cn<CR>
+    nnoremap <A-,> :cp<CR>
+
+    " do build
+    nnoremap <silent> <F5>    :w<CR>:call DoBuild()<CR>
+    nnoremap <silent> <A-S-r> :w<CR>:call DoBuild()<CR>
 
     " Fullscreen
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
@@ -94,28 +143,19 @@ augroup END
 	"CtrlP"
         let g:ctrlp_root_markers = ['Source', 'src']
 
-		set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.meta,*.mat,*.suo,*.csproj,*.sln,*.dwlt,
+        set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.meta,*.mat,*.suo,*.csproj,*.sln,*.dwlt,
                         \*.asset,*.unity,*.db,*.xml,*.cache,*.prefab,*.fbx,*.max,*.lxo,*.blend,
                         \*.obj,*.3DS,*.smd,*.mp3,*.ogg,*.wav,*.png,*.jpg,*.prefs,*.anim,*.unityproj,
                         \*.config,*.log,*.rsp,
                         \*UnityTempFile*,*.pdb,*.dll,*.ilk,*.lnk,*.ini
 
-		nnoremap <C-m><c-p> :CtrlPMRU<cr>
+        nnoremap <C-r><C-u> :CtrlPMRU<CR>
+        nnoremap <A-r><A-u> :CtrlPMRU<CR>
 
 		let g:ctrlp_custom_ignore = {
 		  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-		  \ 'file': '\v\.(exe|so|dll|meta)$',
-		  \ 'link': 'some_bad_symbolic_links',
+		  \ 'file': '\v\.(exe|so|dll|meta)$'
 		  \ }
-
-	"UltiSnips"
-		" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-		let g:UltiSnipsExpandTrigger="<s-tab>"
-		let g:UltiSnipsJumpForwardTrigger="<c-k>"
-		let g:UltiSnipsJumpBackwardTrigger="<c-i>"
-
-		" If you want :UltiSnipsEdit to split your window.
-		let g:UltiSnipsEditSplit="vertical"
 
 	"Smooth scroll"
 		noremap <silent> <c-f> m':call smooth_scroll#down(&scroll * 1, 1, 2)<CR>
@@ -129,7 +169,7 @@ augroup END
 ""{{{ -- Mappings
 
     "collapse blocks of empty lines into a single one
-    nnoremap <silent> <leader>re :%s/^\_s\+\n/\r<CR>
+    nnoremap <silent> <leader>re ma:%s/^\_s\+\n/\r<CR>'azz
     
     "unicode insertion
     inoremap <C-k> <C-v>
@@ -227,8 +267,8 @@ augroup END
         vnoremap <silent> K /^\s*$<CR>
         
         "next/prev method/function'
-        nnoremap <silent>} /^{<CR>:nohlsearch<CR>zz
-        nnoremap <silent>{ ?^{<CR>:nohlsearch<CR>zz
+        nnoremap <silent>} /^{<CR>:nohlsearch<CR>
+        nnoremap <silent>{ ?^{<CR>:nohlsearch<CR>
 
         "beginning/end of line
         nnoremap m ox<BS>
@@ -298,12 +338,8 @@ augroup END
         vnoremap <A-i> I
         vnoremap <A-a> A
 
-		" Duplicate current line/highlighted word
-		nnoremap <C-d> yyp
-		vnoremap <C-d> yP
-
 		" Jumps cursor inside braces http://stackoverflow.com/questions/9621173/vim-and-indentation-with-brackets-braces
-		inoremap {<CR> {<CR>}<C-o>O
+		inoremap <S-CR> <CR>{<CR>}<C-o>O
 
 	"Visual/Select"
 		" Visually select the current word
@@ -355,6 +391,8 @@ augroup END
 		nnoremap <leader>bl :ls<CR>
 
 	"Windows"
+        " close
+        nnoremap <S-q> :q!<CR>
 		" Switching windows
 		nnoremap <silent> <leader>wi :wincmd k<CR>
 		nnoremap <silent> <leader>wk :wincmd j<CR>
@@ -455,4 +493,24 @@ augroup END
         echo
         call setpos('.', original_cursor)
     endfunction
+    
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
 ""}}}

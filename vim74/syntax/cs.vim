@@ -1,8 +1,10 @@
 " Vim syntax file
-" Language:             Microsoft C#
-" Maintainer:           Kian Ryan (kian@orangetentacle.co.uk)
-" Former Maintainer:    Anduin Withers (awithers@anduin.com)
-" Filenames:            *.cs
+" Language:	C#
+" Maintainer:	Anduin Withers <awithers@anduin.com>
+" Former Maintainer:	Johannes Zellner <johannes@zellner.org>
+" Last Change:	Fri Aug 14 13:56:37 PDT 2009
+" Filenames:	*.cs
+" $Id: cs.vim,v 1.4 2006/05/03 21:20:02 vimboss Exp $
 "
 " REFERENCES:
 " [1] ECMA TC39: C# Language Specification (WD13Oct01.doc)
@@ -14,62 +16,39 @@ endif
 let s:cs_cpo_save = &cpo
 set cpo&vim
 
+
 " type
-syn keyword csType			bool byte char decimal double float int long object sbyte short string uint ulong ushort void var dynamic
+syn keyword csType			bool byte char decimal double float int long object sbyte short string uint ulong ushort void
 " storage
-syn keyword csTypeDecleration           class enum struct nextgroup=csClass skipwhite
-syn keyword csStorage			delegate interface namespace struct
-syn keyword csInterfaceDecleration      interface nextgroup=csIface skipwhite
+syn keyword csStorage			class delegate enum interface namespace struct
 " repeat / condition / label
 syn keyword csRepeat			break continue do for foreach goto return while
 syn keyword csConditional		else if switch
 syn keyword csLabel			case default
-" :: is usually an error in C#, except for the special case of "global::"
+" there's no :: operator in C#
 syn match csOperatorError		display +::+
-syn match csGlobal          display +global::+
 " user labels (see [1] 8.6 Statements)
 syn match   csLabel			display +^\s*\I\i*\s*:\([^:]\)\@=+
 " modifier
-syn keyword csModifier			abstract const extern internal override private protected public readonly sealed static virtual volatile nextgroup=CsClass,CsIface skipwhite
+syn keyword csModifier			abstract const extern internal override private protected public readonly sealed static virtual volatile
 " constant
 syn keyword csConstant			false null true
 " exception
 syn keyword csException			try catch finally throw
 
 " TODO:
-syn keyword csUnspecifiedStatement	as base checked event fixed in is lock operator out params ref sizeof stackalloc this unchecked unsafe using
+syn keyword csUnspecifiedStatement	as base checked event fixed in is lock new operator out params ref sizeof stackalloc this typeof unchecked unsafe using
 " TODO:
 syn keyword csUnsupportedStatement	add remove value
 " TODO:
 syn keyword csUnspecifiedKeyword	explicit implicit
 
-syn keyword csTypeOf                    typeof nextgroup=csEnclosed
-
-" Linq Keywords
-syn keyword csLinq                      from where select group into orderby join let in on equals by ascending descending
-
-" Async Keywords
-syn keyword csAsync                     async await
 
 " Contextual Keywords
 syn match csContextualStatement	/\<yield[[:space:]\n]\+\(return\|break\)/me=s+5
 syn match csContextualStatement	/\<partial[[:space:]\n]\+\(class\|struct\|interface\)/me=s+7
-syn match csContextualStatement	/\<\(get\|set\);/me=s+3
 syn match csContextualStatement	/\<\(get\|set\)[[:space:]\n]*{/me=s+3
-syn match csContextualStatement /\<where\>[^:]\+:/me=s+5
-
-"New Declerations
-syn keyword csNewDecleration            new nextgroup=csClass skipwhite
-
-"Interface & Class Identifier
-"syn match csClass contained       /[^.]\<[A-Z][a-z]\w\+/ nextgroup=csGeneric
-syn match csClass contained       /\<[A-Z][a-z]\w\+/ nextgroup=csGeneric
-syn match csIface contained       /\<I[A-Z][a-z]\w\+/ nextgroup=csGeneric
-syn region csEnclosed start="(" end=")" contains=csConstant,csType,csString, csVerbatimString, csCharacter, csNumber,csIface,csClass
-
-" Attributes
-syn region csAttribute start="^\s*\[" end="\]\s*" contains=csString, csVerbatimString, csCharacter, csNumber, csType
-
+syn match csContextualStatement	/\<where\>[^:]\+:/me=s+5
 
 " Comments
 "
@@ -111,7 +90,7 @@ syn region	csPreCondit
 syn region	csRegion matchgroup=csPreCondit start="^\s*#\s*region.*$"
     \ end="^\s*#\s*endregion" transparent fold contains=TOP
 
-"syn region csFold start="{" end="}" transparent fold
+
 
 " Strings and constants
 syn match   csSpecialError	contained "\\."
@@ -134,9 +113,6 @@ syn match   csNumber		"\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
 
 " The default highlighting.
 hi def link csType			Type
-hi def link csTypeDecleration		StorageClass
-hi def link csInterfaceDecleration      StorageClass
-hi def link csNewDecleration            StorageClass
 hi def link csStorage			StorageClass
 hi def link csRepeat			Repeat
 hi def link csConditional		Conditional
@@ -147,14 +123,8 @@ hi def link csException			Exception
 hi def link csUnspecifiedStatement	Statement
 hi def link csUnsupportedStatement	Statement
 hi def link csUnspecifiedKeyword	Keyword
-hi def link csLinq                      Keyword
-hi def link csAsync                     Keyword
 hi def link csContextualStatement	Statement
 hi def link csOperatorError		Error
-hi def link csAttribute			Type
-
-hi def link csIface                     Type
-hi def link csClass                     Type
 
 hi def link csTodo			Todo
 hi def link csComment			Comment
@@ -170,7 +140,6 @@ hi def link csSpecialChar		SpecialChar
 hi def link csNumber			Number
 hi def link csUnicodeNumber		SpecialChar
 hi def link csUnicodeSpecifier		SpecialChar
-hi def link csTypeOf                    Keyword
 
 " xml markup
 hi def link csXmlCommentLeader		Comment

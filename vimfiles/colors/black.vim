@@ -48,7 +48,7 @@ hi TabLine      gui=NONE      guifg=#707070 guibg=#262626
 hi TabLineFill  gui=NONE      guifg=NONE    guibg=#262626
 hi TabLineSel   gui=NONE      guifg=#9e9e9e guibg=#262626
 hi Title        gui=NONE      guifg=#808080 guibg=NONE
-hi Todo         gui=standout  guifg=NONE    guibg=NONE
+hi Todo         gui=BOLD      guifg=#81EB86 guibg=NONE
 hi Type         gui=NONE      guifg=#FFFFD7 guibg=NONE
 hi Underlined   gui=NONE      guifg=NONE    guibg=NONE
 hi VertSplit    gui=NONE      guifg=#81EB86 guibg=#212121

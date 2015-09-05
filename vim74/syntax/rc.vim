@@ -1,7 +1,10 @@
 " Vim syntax file
 " Language:	M$ Resource files (*.rc)
-" Maintainer:	Heiko Erhardt <Heiko.Erhardt@munich.netsurf.de>
-" Last Change:	2001 May 09
+" Maintainer:	Christian Brabandt
+" Last Change:	2015-05-29
+" Repository:   https://github.com/chrisbra/vim-rc-syntax
+" License:	Vim (see :h license)
+" Previous Maintainer:	Heiko Erhardt <Heiko.Erhardt@munich.netsurf.de>
 
 " This file is based on the c.vim
 
@@ -21,7 +24,7 @@ syn keyword rcMainObject MENU ACCELERATORS TOOLBAR DIALOG
 syn keyword rcMainObject STRINGTABLE MESSAGETABLE RCDATA DLGINIT DESIGNINFO
 
 syn keyword rcSubObject POPUP MENUITEM SEPARATOR
-syn keyword rcSubObject CONTROL LTEXT CTEXT EDITTEXT
+syn keyword rcSubObject CONTROL LTEXT CTEXT RTEXT EDITTEXT
 syn keyword rcSubObject BUTTON PUSHBUTTON DEFPUSHBUTTON GROUPBOX LISTBOX COMBOBOX
 syn keyword rcSubObject FILEVERSION PRODUCTVERSION FILEFLAGSMASK FILEFLAGS FILEOS
 syn keyword rcSubObject FILETYPE FILESUBTYPE
@@ -182,13 +185,13 @@ if version >= 508 || !exists("did_rc_syntax_inits")
   HiLink rcStatement	Statement
 
   " Default color overrides
-  "hi def rcLanguage	term=reverse ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
-  "hi def rcMainObject	term=underline ctermfg=Blue guifg=Blue
-  "hi def rcSubObject	ctermfg=Green guifg=Green
-  "hi def rcCaptionParam	term=underline ctermfg=DarkGreen guifg=Green
-  "hi def rcParam	ctermfg=DarkGreen guifg=DarkGreen
-  "hi def rcStatement	ctermfg=DarkGreen guifg=DarkGreen
-  "hi def rcCommonAttribute	ctermfg=Brown guifg=Brown
+  hi def rcLanguage	term=reverse ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
+  hi def rcMainObject	term=underline ctermfg=Blue guifg=Blue
+  hi def rcSubObject	ctermfg=Green guifg=Green
+  hi def rcCaptionParam	term=underline ctermfg=DarkGreen guifg=Green
+  hi def rcParam	ctermfg=DarkGreen guifg=DarkGreen
+  hi def rcStatement	ctermfg=DarkGreen guifg=DarkGreen
+  hi def rcCommonAttribute	ctermfg=Brown guifg=Brown
 
   "HiLink rcIdentifier	Identifier
 

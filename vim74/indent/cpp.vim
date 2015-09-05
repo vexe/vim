@@ -10,6 +10,6 @@ endif
 let b:did_indent = 1
 
 " C++ indenting is built-in, thus this is very simple
-setlocal autoindent
+setlocal cindent
 
 let b:undo_indent = "setl cin<"

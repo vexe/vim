@@ -10,7 +10,6 @@ endif
 let b:did_indent = 1
 
 " C# is like indenting C
-setlocal autoindent
-"setlocal cindent
+setlocal cindent
 
 let b:undo_indent = "setl cin<"
