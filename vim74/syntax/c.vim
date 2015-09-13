@@ -352,8 +352,8 @@ if !exists("c_no_if0")
   syn region	cCppOutSkip	contained start="^\s*\(%:\|#\)\s*\(if\>\|ifdef\>\|ifndef\>\)" skip="\\$" end="^\s*\(%:\|#\)\s*endif\>" contains=cSpaceError,cCppOutSkip
   syn region	cCppInSkip	contained matchgroup=cCppInWrapper start="^\s*\(%:\|#\)\s*\(if\s\+\(\d\+\s*\($\|//\|/\*\||\|&\)\)\@!\|ifdef\>\|ifndef\>\)" skip="\\$" end="^\s*\(%:\|#\)\s*endif\>" containedin=cCppOutElse,cCppInIf,cCppInSkip contains=TOP,cPreProc
 endif
-"syn region	cIncluded	display contained start=+"+ skip=+\\\\\|\\"+ end=+"+
-"syn match	cIncluded	display contained "<[^>]*>"
+syn region	cIncluded	display contained start=+"+ skip=+\\\\\|\\"+ end=+"+
+syn match	cIncluded	display contained "<[^>]*>"
 syn match	cInclude	display "^\s*\(%:\|#\)\s*include\>\s*["<]" contains=cIncluded
 "syn match cLineSkip	"\\$"
 syn cluster	cPreProcGroup	contains=cPreCondit,cIncluded,cInclude,cDefine,cErrInParen,cUserLabel,cSpecial,cOctalZero,cCppOutWrapper,cCppInWrapper,@cCppOutInGroup,cNumber,cFloat,cOctal,cOctalError,cNumbersCom,cString,cCommentSkip,cCommentString,cComment2String,@cCommentGroup,cCommentStartError,cParen,cBracket,cMulti
@@ -423,7 +423,7 @@ hi def link cStorageClass	StorageClass
 hi def link cInclude		Include
 hi def link cPreProc		PreProc
 hi def link cDefine		Macro
-"hi def link cIncluded		cString
+hi def link cIncluded		cString
 "hi def link cError		Error
 hi def link cStatement		Statement
 hi def link cCppInWrapper	cCppOutWrapper

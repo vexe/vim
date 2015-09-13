@@ -12,36 +12,29 @@ highlight clear
 
 let colors_name = "basic"
 
-" Remove all highlighting
-highlight clear Constant
-highlight clear Number
-highlight clear Statement
-highlight clear PreProc
-highlight clear Type
-highlight clear Special
-highlight clear Identifier
+" Remove all hiing
+hi clear Constant
+hi clear Number
+hi clear Statement
+hi clear PreProc
+hi clear Type
+hi clear Special
+hi clear Identifier
 
-highlight clear String
-highlight clear Comment
-highlight clear Error
-highlight clear LineNr
-highlight clear NonText
-highlight clear SpecialKey
+hi clear String
+hi clear Comment
+hi clear Error
+hi clear LineNr
+hi clear NonText
+hi clear SpecialKey
 
 " Set up some simple non-intrusive colors
-if &background == "light"
-	highlight String term=underline cterm=NONE ctermfg=DarkGreen
-	highlight Comment term=bold cterm=NONE ctermfg=DarkBlue
-	highlight Error term=reverse cterm=NONE ctermfg=DarkRed
-	highlight LineNr term=bold cterm=NONE ctermfg=DarkYellow
-	highlight NonText term=bold cterm=NONE ctermfg=DarkYellow
-	highlight SpecialKey term=bold cterm=NONE ctermfg=DarkYellow
-else
-	highlight String term=underline cterm=NONE ctermfg=Magenta
-	highlight Comment term=bold cterm=NONE ctermfg=Cyan
-	highlight Error term=reverse cterm=NONE ctermbg=Red
-	highlight LineNr term=bold cterm=NONE ctermfg=Yellow
-	highlight NonText term=bold cterm=NONE ctermfg=Yellow
-	highlight SpecialKey term=bold cterm=NONE ctermfg=Yellow
-endif
-
+hi String term=underline cterm=NONE ctermfg=Magenta
+hi Comment term=bold cterm=NONE ctermfg=Cyan
+hi Error term=reverse cterm=NONE ctermbg=Red
+hi LineNr term=bold cterm=NONE ctermfg=Yellow
+hi NonText term=bold cterm=NONE ctermfg=Yellow
+hi SpecialKey term=bold cterm=NONE ctermfg=Yellow
+hi Cursor gui=NONE guifg=#121212 guibg=#afd700
+hi MatchParen gui=NONE guifg=NONE guibg=NONE
+"hi VertSplit gui=NONE guifg=#81EB86 guibg=#212121

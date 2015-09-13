@@ -1,19 +1,9 @@
-behave mswin
-source $VIMRUNTIME/mswin.vim
-let $PATH .= ';C:\Windows\SysWOW64'
-
 ""{{{ -- AutoCommands --
 
 augroup FormatOptions
     autocmd!
     autocmd BufEnter * setlocal formatoptions-=cro
 augroup END
-    "Start maximized
-    augroup OnEnter
-        autocmd!
-        autocmd VimEnter * call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
-        autocmd GUIEnter * simalt ~x
-    augroup END
     " Auto set working directory
     augroup UpdateCWD
         autocmd!
@@ -27,17 +17,15 @@ augroup END
     set fillchars=stl:-
     set fillchars+=vert:\|
 
-    " fixes some scrolling/rendering issues
-    "set ttyscroll=0
-    "set nocursorline
-    "set nocursorcolumn
-
+    " hides --INSERT--
+    set noshowmode
+    
     " switch cases indentation
     set cinoptions==0
 
     " global search/replace by default
     set gdefault
-
+    
     " cursor shape
     set guicursor+=i:ver11
     set guicursor+=v:ver11
@@ -46,17 +34,18 @@ augroup END
     " disable blinking
     set guicursor=a:blinkon0
 
-    " these four speed things up when syn high is enabled and browsing huge amount of text
-    "syntax sync minlines=256
+    " fixes some scrolling/rendering issues
+    syntax sync minlines=256
+    set ttyscroll=0 
+    set nocursorline
+    set nocursorcolumn
 
     set norelativenumber
 	set expandtab
     set nocompatible
 	set shellslash
 	set backspace=2
-	set guifont=inputmono:h11
-	"set guifont=Courier_New:h12:cANSI
-	"set guifont=Consolas:b:h12:cANSI "use _ for spaces
+	"color basic
     color black
     syntax on
 	set nowrap
@@ -69,16 +58,15 @@ augroup END
 	filetype plugin indent on
 	set noswapfile
 	set nobackup
-    set nohlsearch
+    set hlsearch
 	"set hlsearch					" highlights all the found instances in a search
     set ignorecase					" Ignore case when searching
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
 	set incsearch					" Show search matches as you type.
 	scriptencoding utf-8			" UTF-8 encoding
-	set guioptions=                 " no gui, whatsoever
-    set autoread                    " auto read files after they're modified without displaying a prompt
+	set autoread                    " auto read files after they're modified without displaying a prompt
     set mouse=a
-
+    
 ""}}}
 
 ""{{{ -- Plugins --
@@ -168,6 +156,9 @@ augroup END
 
 ""{{{ -- Mappings
 
+    "quick edit
+    nnoremap E :edit 
+    
     "collapse blocks of empty lines into a single one
     nnoremap <silent> <leader>re ma:%s/^\_s\+\n/\r<CR>'azz
     
@@ -203,10 +194,6 @@ augroup END
     vnoremap * y/<C-R>"<CR>
     vnoremap # y?<C-R>"<CR>
 
-	"Jump list
-	"forward
-	nnoremap <S-o> <C-I>
-
 	"Rename" (whole word)
     "current line
     nnoremap <A-r><A-r> :s/\<<c-r>=expand("<cword>")<cr>\>//I<left><left>
@@ -232,6 +219,7 @@ augroup END
 		nnoremap <F2> i
         inoremap <silent><F2> <Esc>:call GoRightIfNotBOL()<CR>
         vnoremap <F2> <Esc>
+        cnoremap <F2> <Esc>
 
     "Misc Nops
 		nnoremap <A-f> <Nop>
@@ -245,26 +233,21 @@ augroup END
         " Next/prev word (insert mode)
 		inoremap <C-l> <esc>ea
 		inoremap <C-j> <esc>bi
-		" Jump to last cursor position
-		nnoremap <A--> ``
-		" Navigation
-        "next/prev word/block
-        nnoremap J b
-        nnoremap L w
-        "nnoremap I {
-        "nnoremap K }
-        vnoremap J b
-        vnoremap L w
-        "vnoremap I {
-        "vnoremap K }   
+        nnoremap <A-h> ^
+        nnoremap <A-'> $
         
-        nnoremap / :set hlsearch<CR>:nohlsearch<CR>/
-        nnoremap ? :set hlsearch<CR>:nohlsearch<CR>?
+        "nnoremap / :set hlsearch<CR>:nohlsearch<CR>/
+        "nnoremap ? :set hlsearch<CR>:nohlsearch<CR>?
         
-        nnoremap <silent> I :set nohlsearch<CR>?^\s*$<CR>:nohlsearch<CR>
-        nnoremap <silent> K :set nohlsearch<CR>/^\s*$<CR>:nohlsearch<CR>
-        vnoremap <silent> I ?^\s*$<CR>
-        vnoremap <silent> K /^\s*$<CR>
+        "nnoremap <silent> I :set nohlsearch<CR>?^\s*$<CR>:nohlsearch<CR>
+        "nnoremap <silent> K :set nohlsearch<CR>/^\s*$<CR>:nohlsearch<CR>
+        "vnoremap <silent> I ?^\s*$<CR>
+        "vnoremap <silent> K /^\s*$<CR>
+        
+        nnoremap I {
+        nnoremap K }
+        vnoremap I {
+        vnoremap K }
         
         "next/prev method/function'
         nnoremap <silent>} /^{<CR>:nohlsearch<CR>
@@ -273,8 +256,6 @@ augroup END
         "beginning/end of line
         nnoremap m ox<BS>
         nnoremap o Ox<BS>
-        "nnoremap m o
-        "nnoremap o O
         nnoremap h ^i
         nnoremap ' $a
         vnoremap h ^
@@ -315,20 +296,22 @@ augroup END
 		" Undoing
 		nnoremap <C-z> u
 		inoremap <C-z> <C-[>ui
-		" This is due to the fact that in VS, Ctrl-V is reserved for paste
+        
 		nnoremap <A-v> <C-v>
 
 	"Other"
         " yank current word
-        nnoremap Y yiw
+        nnoremap y<space> yiw
 
 		" For recording purposes, fast repeating.
 		nnoremap <A-2> @a
 
 		" Change inside
         nnoremap <A-i> ci
-        nnoremap <A-i><A-'> ci"
         nnoremap <A-i><A-9> ci(
+        nnoremap <A-i><A-'> ci"
+        nnoremap <A-i><A-,> ci<
+        nnoremap <A-i><A-[> ci[
 
         " Join
         nnoremap <A-j> J
@@ -339,7 +322,7 @@ augroup END
         vnoremap <A-a> A
 
 		" Jumps cursor inside braces http://stackoverflow.com/questions/9621173/vim-and-indentation-with-brackets-braces
-		inoremap <S-CR> <CR>{<CR>}<C-o>O
+		inoremap <S-CR> <Esc>A<CR>{<CR>}<C-o>O
 
 	"Visual/Select"
 		" Visually select the current word
@@ -359,13 +342,9 @@ augroup END
 		" Enhanced change line
 		nnoremap <silent>cc :call ChangeCurrentLine()<cr>a
 
-	"GUI"
-		" Toggle menu bar
-		nnoremap <silent><leader>tm :call ToggleMenuBar()<cr>
-
 	"Buffers"
         " previous buffer
-        nnoremap <leader>3 :buf #<CR>
+        nnoremap <silent> B :buf! #<CR>
 
 		" Show a menu to complete buffer and file names
 		set wildchar=<Tab> wildmenu wildmode=full"
@@ -392,8 +371,11 @@ augroup END
 
 	"Windows"
         " close
-        nnoremap <S-q> :q!<CR>
+        nnoremap <silent> Q :q!<CR>
+        "close all windows except current
+        nnoremap <silent> O :only!<CR>
 		" Switching windows
+        nnoremap W <C-w><C-w>
 		nnoremap <silent> <leader>wi :wincmd k<CR>
 		nnoremap <silent> <leader>wk :wincmd j<CR>
 		nnoremap <silent> <leader>wj :wincmd h<CR>
@@ -408,10 +390,6 @@ augroup END
 ""}}}
 
 ""{{{ -- Functions --
-	function! ToggleMenuBar()
-		let &g:guioptions = ToggleStringValue(&g:guioptions, "m")
-	endfu
-
 	function! IsLineEmpty(line)
 		return match(a:line, '^\s*$') == -1 ? 0 : 1
 	endfu
