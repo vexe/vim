@@ -1,73 +1,77 @@
+behave mswin
+source $VIMRUNTIME/mswin.vim
+let $PATH .= ';C:\Windows\SysWOW64'
+
 ""{{{ -- AutoCommands --
 
 augroup FormatOptions
     autocmd!
     autocmd BufEnter * setlocal formatoptions-=cro
 augroup END
-    " Auto set working directory
-    augroup UpdateCWD
-        autocmd!
-        autocmd BufEnter * silent! lcd %:p:h
-    augroup END
+
+" Auto set working directory
+augroup UpdateCWD
+    autocmd!
+    autocmd BufEnter * silent! lcd %:p:h
+augroup END
 ""}}}
 
 ""{{{ -- Misc Settings --
 
     " split chars
-    set fillchars=stl:-
+    set fillchars=stl:\ 
     set fillchars+=vert:\|
 
-    " hides --INSERT--
-    set noshowmode
-    
-    " switch cases indentation
+    "" switch cases indentation
     set cinoptions==0
 
-    " global search/replace by default
+    "" global search/replace by default
     set gdefault
     
-    " cursor shape
+    "" cursor shape
     set guicursor+=i:ver11
     set guicursor+=v:ver11
     set guicursor+=n:block
 
-    " disable blinking
+    "" disable blinking
     set guicursor=a:blinkon0
 
-    " fixes some scrolling/rendering issues
+    "" fixes some scrolling/rendering issues
     syntax sync minlines=256
     set ttyscroll=0 
     set nocursorline
     set nocursorcolumn
 
     set norelativenumber
-	set expandtab
+    set expandtab
     set nocompatible
-	set shellslash
-	set backspace=2
-	"color basic
+    set shellslash
+    set backspace=2
     color black
     syntax on
-	set nowrap
+    set nowrap
     set autoindent
     set smartindent
-	set tabstop=4
-	set shiftwidth=4
-	set textwidth=65
-	set laststatus=0				" status line
-	filetype plugin indent on
-	set noswapfile
-	set nobackup
-    set hlsearch
-	"set hlsearch					" highlights all the found instances in a search
+    set tabstop=4
+    set shiftwidth=4
+    set textwidth=65
+    set laststatus=1 "setting this to 0 will cause an extra empty line when doing horizontal splits!
+    set statusline=\ 
+    filetype plugin indent on
+    set noswapfile
+    set nobackup
+    set hlsearch					" highlights all the found instances in a search
     set ignorecase					" Ignore case when searching
     set smartcase					" Ignore case if search is all lowercase, case-sensitive otherwise.
-	set incsearch					" Show search matches as you type.
-	scriptencoding utf-8			" UTF-8 encoding
-	set autoread                    " auto read files after they're modified without displaying a prompt
+    set incsearch					" Show search matches as you type.
+    scriptencoding utf-8			" UTF-8 encoding
+    set autoread                    " auto read files after they're modified without displaying a prompt
     set mouse=a
-    
-""}}}
+
+    " hides --INSERT--
+    set noshowmode
+
+"""}}}
 
 ""{{{ -- Plugins --
 
@@ -106,7 +110,6 @@ augroup END
 
     
     " toggle quickfix window
-    "nnoremap <silent> <A-3> :call ToggleQuickFix()<CR> 
     nnoremap <A-3> :copen<CR>
     
     " navigate errors
@@ -128,7 +131,20 @@ augroup END
 	vnoremap <leader>t{ :Tabularize /{<cr>
 	vnoremap <leader>t: :Tabularize /:<cr>
 
-	"CtrlP"
+    "CtrlP"
+        "let g:ctrlp_buffer_func = {
+                    "\ 'enter': 'HideStatusLine',
+                    "\ 'exit':  'ShowStatusLine',
+                    "\ }
+
+        "func! HideStatusLine()
+            "set laststatus=0
+        "endfunc
+
+        "func! ShowStatusLine()
+            "set laststatus=1
+        "endfunc
+
         let g:ctrlp_root_markers = ['Source', 'src']
 
         set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.meta,*.mat,*.suo,*.csproj,*.sln,*.dwlt,
@@ -235,27 +251,34 @@ augroup END
 		inoremap <C-j> <esc>bi
         nnoremap <A-h> ^
         nnoremap <A-'> $
-        
+
         "nnoremap / :set hlsearch<CR>:nohlsearch<CR>/
         "nnoremap ? :set hlsearch<CR>:nohlsearch<CR>?
-        
+
         "nnoremap <silent> I :set nohlsearch<CR>?^\s*$<CR>:nohlsearch<CR>
         "nnoremap <silent> K :set nohlsearch<CR>/^\s*$<CR>:nohlsearch<CR>
         "vnoremap <silent> I ?^\s*$<CR>
         "vnoremap <silent> K /^\s*$<CR>
         
+        nnoremap J b
+        nnoremap L w
+        vnoremap J b
+        vnoremap L w
+
         nnoremap I {
         nnoremap K }
         vnoremap I {
         vnoremap K }
-        
+
         "next/prev method/function'
         nnoremap <silent>} /^{<CR>:nohlsearch<CR>
         nnoremap <silent>{ ?^{<CR>:nohlsearch<CR>
 
         "beginning/end of line
-        nnoremap m ox<BS>
-        nnoremap o Ox<BS>
+        "nnoremap m ox<BS>
+        "nnoremap o Ox<BS>
+        nnoremap m o
+        nnoremap o O
         nnoremap h ^i
         nnoremap ' $a
         vnoremap h ^

@@ -40,8 +40,11 @@ hi SpellCap     gui=undercurl guisp=NONE    guifg=NONE    guibg=NONE
 hi SpellLocal   gui=undercurl guisp=NONE    guifg=NONE    guibg=#082608
 hi SpellRare    gui=undercurl guisp=NONE    guifg=NONE    guibg=#262626
 hi Statement    gui=NONE      guifg=#FFFFD7 guibg=NONE
-hi StatusLine   gui=NONE      guifg=#81EB86 guibg=#262626
-hi StatusLineNC gui=NONE      guifg=#81EB86 guibg=#262626
+
+" IMPORTANT: don't assign the same color value to these lines!
+hi StatusLine   gui=NONE      guifg=#81EB86 guibg=#212121
+hi StatusLineNC gui=NONE      guifg=#81EB86 guibg=#212120
+
 hi StorageClass gui=NONE      guifg=#FFFFD7 guibg=NONE
 hi String       gui=NONE      guifg=#92d4ff guibg=NONE
 hi TabLine      gui=NONE      guifg=#707070 guibg=#262626
