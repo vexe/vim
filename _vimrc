@@ -20,7 +20,7 @@ augroup END
 
     " split chars
     set fillchars=stl:\ 
-    set fillchars+=vert:\|
+    set fillchars+=vert:\ 
 
     "" switch cases indentation
     set cinoptions==0
@@ -37,10 +37,10 @@ augroup END
     set guicursor=a:blinkon0
 
     "" fixes some scrolling/rendering issues
-    syntax sync minlines=256
+    "syntax sync minlines=256
     set ttyscroll=0 
-    set nocursorline
-    set nocursorcolumn
+    "set nocursorline
+    "set nocursorcolumn
 
     set norelativenumber
     set expandtab
@@ -74,6 +74,11 @@ augroup END
 """}}}
 
 ""{{{ -- Plugins --
+
+    let g:lite_dfm_left_offset = 0
+
+    " Tagbar
+    map <leader>tb :TagbarToggle<CR> 
 
     " Ensure the buffer for building code opens in a new view
     set switchbuf=useopen,split
@@ -110,15 +115,15 @@ augroup END
 
     
     " toggle quickfix window
-    nnoremap <A-3> :copen<CR>
+    nnoremap <A-3> :cclose<CR>
     
     " navigate errors
     nnoremap <A-.> :cn<CR>
     nnoremap <A-,> :cp<CR>
 
     " do build
-    nnoremap <silent> <F5>    :w<CR>:call DoBuild()<CR>
-    nnoremap <silent> <A-S-r> :w<CR>:call DoBuild()<CR>
+    nnoremap <silent> <F5>    :wa<CR>:call DoBuild()<CR>
+    nnoremap <silent> <A-S-b> :wa<CR>:call DoBuild()<CR>
 
     " Fullscreen
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
@@ -132,18 +137,18 @@ augroup END
 	vnoremap <leader>t: :Tabularize /:<cr>
 
     "CtrlP"
-        "let g:ctrlp_buffer_func = {
-                    "\ 'enter': 'HideStatusLine',
-                    "\ 'exit':  'ShowStatusLine',
-                    "\ }
+        let g:ctrlp_buffer_func = {
+                    \ 'enter': 'HideStatusLine',
+                    \ 'exit':  'ShowStatusLine',
+                    \ }
 
-        "func! HideStatusLine()
-            "set laststatus=0
-        "endfunc
+        func! HideStatusLine()
+            set laststatus=0
+        endfunc
 
-        "func! ShowStatusLine()
-            "set laststatus=1
-        "endfunc
+        func! ShowStatusLine()
+            set laststatus=1
+        endfunc
 
         let g:ctrlp_root_markers = ['Source', 'src']
 
@@ -171,6 +176,9 @@ augroup END
 ""}}}
 
 ""{{{ -- Mappings
+
+    "move forward in jump list
+    nnoremap <A-o> <C-i>
 
     "quick edit
     nnoremap E :edit 
@@ -260,10 +268,10 @@ augroup END
         "vnoremap <silent> I ?^\s*$<CR>
         "vnoremap <silent> K /^\s*$<CR>
         
-        nnoremap J b
-        nnoremap L w
-        vnoremap J b
-        vnoremap L w
+        nnoremap J B
+        nnoremap L W
+        vnoremap J B
+        vnoremap L W
 
         nnoremap I {
         nnoremap K }

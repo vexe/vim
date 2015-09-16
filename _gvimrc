@@ -1,3 +1,12 @@
+"" {{{ -- Auto Commands --
+augroup OnEnter
+    autocmd!
+    autocmd VimEnter * call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
+    "autocmd GUIEnter * simalt ~x
+augroup END
+"" }}}
+
+
 ""{{{ -- Misc Settings --
 	set guifont=inputmono:h11
     color black

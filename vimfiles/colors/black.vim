@@ -41,9 +41,8 @@ hi SpellLocal   gui=undercurl guisp=NONE    guifg=NONE    guibg=#082608
 hi SpellRare    gui=undercurl guisp=NONE    guifg=NONE    guibg=#262626
 hi Statement    gui=NONE      guifg=#FFFFD7 guibg=NONE
 
-" IMPORTANT: don't assign the same color value to these lines!
-hi StatusLine   gui=NONE      guifg=#81EB86 guibg=#212121
-hi StatusLineNC gui=NONE      guifg=#81EB86 guibg=#212120
+hi StatusLine   gui=NONE      guifg=#212121 guibg=#212121
+hi StatusLineNC gui=NONE      guifg=#212121 guibg=#212121
 
 hi StorageClass gui=NONE      guifg=#FFFFD7 guibg=NONE
 hi String       gui=NONE      guifg=#92d4ff guibg=NONE
